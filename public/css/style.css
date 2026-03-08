@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Oswald:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,200..800;1,200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@369&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +6,7 @@
 }
 
 :root { --primary-color: #4b5f43; }
-body { font-family: 'Poppins', sans-serif; background-color: #f6f6f6; margin: 0;  /* Arka plan resmi */
+body { font-family: 'Poppins', sans-serif; background-color: #F4F1E8; margin: 0;  /* Arka plan resmi */
     
 width: 100%; overflow-x: hidden; }
 
@@ -25,16 +25,16 @@ width: 100%; overflow-x: hidden; }
     position: sticky; /* Eğer sabit kalsın istiyorsan fixed yapabilirsin */
     z-index: 1000;
 }
-.navbar h1 { font-size: 0.8rem; margin: 0; }
+.navbar h1 { font-size: 0.8rem; margin: 0; color: black;}
 .navbar img{
     width: 70px;
     position: relative;
     left: -520px;
 }
 .navbar .pagebox { display: flex; gap: 20px; align-items: center; }
-.navbar .pagebox a { color: #333; text-decoration: none; font-weight: 600; transition: 0.3s; }
+.navbar .pagebox a { color: #3E6C8F; text-decoration: none; font-weight: 600; transition: 0.3s; }
 .navbar .pagebox a:hover , 
-.navbar .pagebox .active{ color: var(--primary-color); }
+.navbar .pagebox .active{ color: #C8A96A; }
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -99,6 +99,10 @@ width: 100%; overflow-x: hidden; }
 .hero-content h2{
     margin-top: -180px;
     font-size: 1.8rem;
+    color: rgb(0, 0, 0);
+    font-family: "Philosopher", sans-serif;
+    z-index: 11;
+    text-shadow: 0 2px 10px rgba(255,255,255,0.8);
 }
 
 /* Mobilde daha küçük görünmesi için (İsteğe bağlı) */
@@ -134,7 +138,7 @@ display: flex;
 section { 
     padding: 60px 20px; display: flex; flex-direction: column; 
     align-items: center; text-align: center; max-width: 900px; margin: 0 auto;
-    border-bottom: 1px solid #e0e0e0; /* Section'lar arası otomatik çizgi */
+    border-bottom: 1px solid #E4E0D6; /* Section'lar arası otomatik çizgi */
     display: flex;
     flex-wrap: wrap; /* SığMayan resimler aşağı kayar, ekranı bozmaz */
     justify-content: center;
@@ -175,7 +179,7 @@ section:last-child { border-bottom: none; }
 
 /* Hashtag genel stili */
 .hashtags {
-    color: var(--primary-color);
+    color: #C8A96A;
     font-size: 0.9rem;
     margin: 5px 0;
 }
@@ -198,9 +202,10 @@ section:last-child { border-bottom: none; }
 
 #announcements-container h2{ margin-bottom: 12px; }
 #announcements-list{ display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 900px; margin: 0 auto; }
-#announcements-list .announcement h3{ margin: 0 0 6px 0; font-size: 1.05rem; color: #222; }
-#announcements-list .announcement p{ margin: 0 0 8px 0; color: #444; line-height: 1.5; font-size: 0.9rem;}
-#announcements-list .announcement small{ color: #888; }
+#announcements-list .announcement h3{ margin: 0 0 6px 0; font-size: 1.05rem; color: #5B4B8A; font-family: "Atkinson Hyperlegible Mono", sans-serif;}
+#announcements-list .announcement p{ margin: 0 0 8px 0; color: #2B2B2B; line-height: 1.5; font-size: 0.9rem; }
+
+#announcements-list .announcement small{ color: #2b2b2b98; text-decoration: underline;}
 
 
 footer {

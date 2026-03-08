@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Döküman Arşivi</title>
+    <div class="pagebox">
+            <a href="/" class="active">Anasayfa</a>
+        </div>
+
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 100%;
+            margin: 20px auto;
+            padding: 20px;
+            font-size: 16px;
+        }
+        .doc-list {
+            list-style: none;
+            padding: 0;
+        }
+        .doc-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .doc-link {
+            text-decoration: none;
+            color: #2980b9;
+            font-weight: bold;
+            font-size: 30px;
+        }
+        .doc-link:hover {
+            color: #3498db;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>📚 Dökümanlar</h1>
+    <div id="docContainer" class="doc-list">
+        </div>
+
+    <script>
+        async function loadDocs() {
+            const container = document.getElementById('docContainer');
+            const res = await fetch('/api/documents');
+            const docs = await res.json();
+
+            container.innerHTML = docs.map(doc => `
+                <div class="doc-item">
+                    <a href="${doc.driveUrl}" class="doc-link" target="_blank">
+                        📄 ${doc.title}
+                    </a>
+                </div>
+            `).join('');
+        }
+        loadDocs();
+    </script>
+    
+</body>
+</html>

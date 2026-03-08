@@ -1,0 +1,172 @@
+body{
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f6f6f6;
+}
+
+/* NAVBAR */
+
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    
+    padding: 20px; 
+    background-color: #e1e1e1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar h1{
+    margin: 0;
+}
+
+.navbar .pagebox{
+    display: flex;
+    align-items: center;
+}
+
+.navbar .pagebox a{
+    color: black;
+    text-decoration: none;
+    margin-left: 30px;
+    font-size: 16px;
+    transition: 0.3s;
+    padding: 6px 14px;
+}
+
+.navbar .pagebox a  {
+    color: black;
+    text-decoration: none;
+    margin-left: 30px;
+    font-size: 16px;
+    transition: 0.3s;
+    padding: 6px 14px;
+}
+
+.navbar .pagebox .active{
+    color: black;
+    text-decoration: none;
+    margin-left: 30px;
+    font-size: 16px;
+    transition: 0.3s;
+    padding: 6px 14px;
+
+
+}
+
+
+.navbar .pagebox a:hover{
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+}
+
+
+/* ANA ALAN */
+
+section{
+    display: flex;
+    gap: 40px;
+    padding: 40px;
+    align-items: flex-start;
+}
+
+
+/* YENİ MAKALE BUTONU */
+
+.addart{
+    border: none;
+    border-radius: 9px;
+    color :black;
+    height: 70px;
+    width: 200px;
+    font-size: 18px;
+    background-color: greenyellow;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+
+/* MAKALELER ALANI */
+
+.articles{
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex: 1;
+}
+
+
+/* TEK MAKALENİN SATIRI */
+
+.article-item{
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.article-item:last-child{
+    border-bottom: none;
+}
+
+.article-item button{
+    background-color: #dc3545;
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.article-item button:hover{
+    background-color: #c82333;
+}
+
+
+
+@media(max-width: 900px){
+    section{
+        flex-direction: column;
+    }
+
+    .addart{
+        width: 100%;
+    }
+}
+
+.article-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.article-item div:last-child {
+    display: flex;
+    align-items: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar .pagebox {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .content {
+        padding: 10px;
+    }
+}

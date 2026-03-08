@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Duyuru Ekle</title>
+  <link rel="stylesheet" href="/css/adminstyle.css">
+  <style>
+    body{font-family: Arial, sans-serif;padding:20px}
+    form{max-width:800px;margin:20px auto;display:flex;flex-direction:column;gap:10px}
+    input,textarea{padding:10px;font-size:16px}
+    button{padding:10px;font-size:16px}
+    .navbar{display:flex;justify-content:space-between;align-items:center;padding:10px}
+    #existing-announcements{max-width:800px;margin:20px auto;}
+    #existing-announcements .announcement{background:#fff;border:1px solid #ddd;padding:12px;margin-bottom:10px;border-radius:6px;position:relative;}
+    #existing-announcements .delete-btn{position:absolute;top:10px;right:10px;background:#e74c3c;color:#fff;border:none;padding:4px 8px;cursor:pointer;border-radius:4px;}
+  </style>
+</head>
+<body>
+    <nav class="navbar">
+        <h1>Duyuru Ekle</h1>
+        <div class="pagebox">
+            <a href="/admin.html">Admin Paneline Dön</a>
+        </div>
+    </nav>
+
+    <section>
+        <form id="announcementForm" class="articles">
+            <h2>Yeni Haber / Duyuru</h2>
+            <input type="text" id="annTitle" name="title" placeholder="Duyuru Başlığı" required style="width: 100%; margin-bottom: 10px; padding: 10px;">
+            <textarea maxlength="1000" id="annContent" name="content" placeholder="Duyuru İçeriği" required style="width: 100%; height: 200px; margin-bottom: 10px; padding: 10px;"></textarea>
+            <button type="submit" class="addart">Yayınla</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Mevcut Duyurular</h2>
+        <div id="existing-announcements">Yükleniyor...</div>
+    </section>
+
+    <script>
+      // DOM yüklendikten sonra formu bağla
+      document.addEventListener('DOMContentLoaded', function(){
+        const form = document.getElementById('announcementForm');
+        if(!form) return;
+        form.addEventListener('submit', async function(e){
+          e.preventDefault();
+          const title = document.getElementById('annTitle').value.trim();
+          const content = document.getElementById('annContent').value.trim();
+          if(!title || !content) return alert('Başlık ve içerik gerekli');
+          try{
+            const res = await fetch('/api/announcements', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ title, content })
+            });
+            if(res.ok){
+              alert('Duyuru eklendi');
+              form.reset();
+            } else {
+              const data = await res.json().catch(()=>({message:'Hata'}));
+              alert(data.message || 'Hata');
+            }
+          } catch(err){
+            alert('Sunucu hatası');
+          }
+        });
+      });
+
+      // mevcut duyuruları listeleme ve silme
+      async function loadExisting() {
+        const container = document.getElementById('existing-announcements');
+        if(!container) return;
+        try {
+          const res = await fetch('/api/announcements');
+          if(!res.ok) throw new Error('Liste alınamadı');
+          const list = await res.json();
+          if(list.length === 0) {
+            container.innerHTML = '<p>Henüz duyuru yok.</p>';
+            return;
+          }
+          container.innerHTML = '';
+          list.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'announcement';
+            div.innerHTML = `<strong>${escapeHtml(item.title)}</strong> <small>${new Date(item.createdAt).toLocaleString()}</small><p>${escapeHtml(item.content)}</p><button data-id="${item._id}" class="delete-btn">Sil</button>`;
+            container.appendChild(div);
+          });
+        } catch (err) {
+          container.innerHTML = '<p>Yüklenirken hata oluştu.</p>';
+        }
+      }
+
+      function escapeHtml(str) {
+        return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]);
+      }
+
+      document.addEventListener('click', async function(e) {
+        if(e.target.classList.contains('delete-btn')) {
+          const id = e.target.getAttribute('data-id');
+          if(!id) return;
+          if(!confirm('Bu duyuruyu silmek istediğine emin misin?')) return;
+          try {
+            const res = await fetch(`/api/announcements/${id}`, { method: 'DELETE' });
+            if(res.ok) {
+              e.target.closest('.announcement').remove();
+            } else {
+              alert('Silme başarısız.');
+            }
+          } catch(err) {
+            alert('Sunucu hatası');
+          }
+        }
+      });
+
+      // sayfa yüklenince mevcutları çek
+      document.addEventListener('DOMContentLoaded', loadExisting);
+    </script>
+</body>
+</html>

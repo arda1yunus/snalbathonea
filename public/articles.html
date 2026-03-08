@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Makalelerimiz</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <div class="navbar">
+        <h1>SNAL BATHONEA PSIKOLOJI KULUBU</h1>
+        <div class="pagebox">
+        <a href="/" >Anasayfa</a>
+        <a href="/articles.html" class="active">📚 Makaleler</a>    
+        <a href="/podcasts.html">🎙️ BatheaCast</a>
+        <a href="/admin.html" class="admin"><ion-icon name="shield-outline"></ion-icon></a>
+        </div>
+    </div>
+
+    <h1 class="title">Mevcut Makaleler <ion-icon name="albums-outline"></ion-icon></h1>
+    <div class="card-container">
+    <div id="articles-list"></div>
+    </div>
+
+    <style>
+        .title {
+            text-align: center;
+            margin: 40px 0 20px;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+        #articles-list {
+            text-align: center;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;    
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 500px;
+            min-height: 300px;
+            box-sizing: border-box;
+            border: 1px solid #eee;
+        }
+        .read-btn {
+            margin-top: 10px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .read-btn:hover { background: #3d4e35; }
+        .hashtags { color: var(--primary-color); font-size: 0.9rem; margin: 5px 0; }
+    @media(min-width:900px){
+    /* On larger screens show announcements in 3-column grid */
+    #announcements-list{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    #announcements-list .announcement{ height: auto; }
+}
+    
+    </style>
+
+    <script>
+        fetch("/api/articles")
+            .then(res => res.json())
+            .then(data => {
+                const container = document.getElementById("articles-list");
+                data.forEach(article => {
+                    container.innerHTML += `
+                        <div class="card">
+                            <h3>${article.title}</h3>
+                            <h4 style='color:#666'>By ${article.author}</h4>
+                            ${article.hashtags && article.hashtags.length ? `<p class="hashtags">${article.hashtags.map(t=>'#'+t).join(' ')}</p>` : ''}
+                            <p>${article.summary}</p>
+                            <button class='read-btn' onclick="window.location.href='/articles/${article._id}'">Oku</button>
+                        </div>
+                    `;
+                });
+            });
+            
+            // Admin olup olmadığını kontrol eden rota
+router.get("/check-admin", (req, res) => {
+    if (req.session && req.session.isAdmin) {
+        res.json({ isAdmin: true });
+    } else {
+        res.status(401).json({ message: "Yetkisiz erişim!" });
+    }
+});
+    </script>
+</body>
+</html>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

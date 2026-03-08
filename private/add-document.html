@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Döküman Linki Ekle | Bathonea Panel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #34495e;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #2980b9;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #7f8c8d;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            color: #34495e;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>📄 Yeni Döküman Ekle</h2>
+    <form id="docForm">
+        <div class="form-group">
+            <label for="title">Döküman Başlığı</label>
+            <input type="text" id="title" placeholder="Örn: 1. Hafta Psikoloji Notları" required>
+        </div>
+
+        <div class="form-group">
+            <label for="driveUrl">Google Drive Linki</label>
+            <input type="url" id="driveUrl" placeholder="https://drive.google.com/..." required>
+        </div>
+
+        <button type="submit" class="btn-submit" id="submitBtn">Sisteme Kaydet</button>
+    </form>
+
+    <a href="/admin.html" class="back-link">← Admin Paneline Dön</a>
+</div>
+
+<script>
+    document.getElementById('docForm').onsubmit = async (e) => {
+        e.preventDefault();
+        
+        const submitBtn = document.getElementById('submitBtn');
+        const title = document.getElementById('title').value;
+        const driveUrl = document.getElementById('driveUrl').value;
+
+        // Butonu geçici olarak devre dışı bırak
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Kaydediliyor...";
+
+        try {
+            const response = await fetch('/api/documents/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ title, driveUrl })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                alert("Döküman başarıyla eklendi!");
+                document.getElementById('docForm').reset();
+            } else {
+                alert("Hata: " + (data.message || "Bir sorun oluştu."));
+            }
+        } catch (error) {
+            console.error("İstek hatası:", error);
+            alert("Sunucuya bağlanılamadı.");
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerText = "Sisteme Kaydet";
+        }
+    };
+</script>
+
+</body>
+</html>

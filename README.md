@@ -1,1 +1,1 @@
-Arda Yunus USTA tarafından geliştirilmiştir.
+Developed by Arda Yunus USTA

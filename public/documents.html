@@ -36,6 +36,11 @@
         .doc-link:hover {
             color: #3498db;
         }
+        .doc-type {
+            font-size: 14px;
+            color: #555;
+            margin-top: 6px;
+        }
 
     </style>
 </head>
@@ -52,9 +57,12 @@
 
             container.innerHTML = docs.map(doc => `
                 <div class="doc-item">
-                    <a href="${doc.driveUrl}" class="doc-link" target="_blank">
-                        📄 ${doc.title}
-                    </a>
+                    <div>
+                        <a href="${doc.driveUrl}" class="doc-link" target="_blank">
+                            📄 ${doc.title}
+                        </a>
+                        <div class="doc-type">Döküman Türü: ${doc.type || 'Belirtilmedi'}</div>
+                    </div>
                 </div>
             `).join('');
         }

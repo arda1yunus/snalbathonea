@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Döküman Düzenle</title>
+    <link rel="stylesheet" href="/css/addartstyle.css">
+</head>
+<body>
+    <div class="container">
+        <a href="/admin.html">← Admin Panele Dön</a>
+        <h2>Döküman Düzenle</h2>
+
+        <input type="text" id="title" placeholder="Döküman Başlığı" required>
+        <input type="text" id="type" placeholder="Döküman Türü" required>
+        <input type="url" id="driveUrl" placeholder="Google Drive Linki" required>
+
+        <button class="btn" id="saveBtn">DEĞİŞİKLİKLERİ KAYDET ✨</button>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const docId = urlParams.get('id');
+        const saveBtn = document.getElementById('saveBtn');
+
+        async function loadDocument() {
+            if (!docId) {
+                alert('Geçerli bir doküman IDsi bulunamadı.');
+                return;
+            }
+
+            try {
+                const res = await fetch(`/api/documents/${docId}`);
+                if (!res.ok) throw new Error('Doküman bulunamadı');
+                const doc = await res.json();
+
+                document.getElementById('title').value = doc.title;
+                document.getElementById('type').value = doc.type || '';
+                document.getElementById('driveUrl').value = doc.driveUrl;
+            } catch (err) {
+                console.error(err);
+                alert('Döküman yüklenirken hata oluştu.');
+            }
+        }
+
+        async function updateDocument() {
+            const title = document.getElementById('title').value.trim();
+            const type = document.getElementById('type').value.trim();
+            const driveUrl = document.getElementById('driveUrl').value.trim();
+
+            if (!title || !type || !driveUrl) {
+                alert('Lütfen tüm alanları doldurun.');
+                return;
+            }
+
+            saveBtn.disabled = true;
+            saveBtn.innerText = 'Kaydediliyor...';
+
+            try {
+                const res = await fetch(`/api/documents/${docId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title, type, driveUrl })
+                });
+
+                const data = await res.json();
+                if (res.ok) {
+                    alert('Döküman başarıyla güncellendi!');
+                    window.location.href = '/admin.html';
+                } else {
+                    alert('Güncelleme hatası: ' + (data.message || 'Bir sorun oluştu.'));
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Sunucuya bağlanılamadı.');
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.innerText = 'DEĞİŞİKLİKLERİ KAYDET ✨';
+            }
+        }
+
+        saveBtn.addEventListener('click', updateDocument);
+        window.addEventListener('DOMContentLoaded', loadDocument);
+    </script>
+</body>
+</html>

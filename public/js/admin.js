@@ -37,5 +37,36 @@ async function deleteArticle(id) {
     }
 }
 
-// Sayfa açıldığında makaleleri getir
+async function loadAdminDocuments() {
+    try {
+        const res = await fetch("/api/documents");
+        const docs = await res.json();
+        const container = document.getElementById("adminDocuments");
+
+        if (!container) return;
+
+        if (docs.length === 0) {
+            container.innerHTML = "<p>Henüz döküman eklenmemiş.</p>";
+            return;
+        }
+
+        container.innerHTML = docs.map(doc => `
+            <div class="article-item">
+                <div>
+                    <strong>${doc.title}</strong><br>
+                    <small style="color: #666;">Tür: ${doc.type || 'Belirtilmedi'}</small>
+                </div>
+                <div>
+                    <a href="${doc.driveUrl}" target="_blank" style="margin-right: 15px; color: #007bff; text-decoration: none;">👁️ Göster</a>
+                    <a href="/edit-document.html?id=${doc._id}" style="margin-right: 15px; color: #28a745; text-decoration: none; font-weight: bold;">✏️ Düzenle</a>
+                </div>
+            </div>
+        `).join("");
+    } catch (err) {
+        console.error("Döküman yükleme hatası:", err);
+    }
+}
+
+// Sayfa açıldığında makaleleri ve dökümanları getir
 loadAdminArticles();
+loadAdminDocuments();

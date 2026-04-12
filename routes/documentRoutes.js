@@ -19,12 +19,45 @@ router.get("/", async (req, res) => {
     }
 });
 
+// @route   GET /api/documents/:id
+// @desc    Tek döküman getirir
+router.get("/:id", async (req, res) => {
+    try {
+        const doc = await Document.findById(req.params.id);
+        if (!doc) return res.status(404).json({ message: "Döküman bulunamadı" });
+        res.json(doc);
+    } catch (err) {
+        res.status(400).json({ message: "Geçersiz ID formatı" });
+    }
+});
+
+// @route   PUT /api/documents/:id
+// @desc    Döküman başlığı ve türünü günceller
+router.put("/:id", authControl, async (req, res) => {
+    try {
+        const { title, driveUrl, type } = req.body;
+        const updatedDoc = await Document.findByIdAndUpdate(
+            req.params.id,
+            { title, driveUrl, type },
+            { new: true }
+        );
+
+        if (!updatedDoc) {
+            return res.status(404).json({ success: false, message: "Döküman bulunamadı" });
+        }
+
+        res.json({ success: true, message: "Döküman güncellendi" });
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+});
+
 // @route   POST /api/documents/add
 // @desc    Yeni döküman linki ekler
 router.post("/add", authControl, async (req, res) => {
     try {
-        const { title, driveUrl } = req.body;
-        const newDoc = new Document({ title, driveUrl });
+        const { title, driveUrl, type } = req.body;
+        const newDoc = new Document({ title, driveUrl, type });
         await newDoc.save();
         res.json({ success: true });
     } catch (err) {

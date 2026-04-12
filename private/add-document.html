@@ -105,6 +105,11 @@
         </div>
 
         <div class="form-group">
+            <label for="documentType">Döküman Türü</label>
+            <input type="text" id="documentType" placeholder="Örn: Ders Notu, Sunum, Makale" required>
+        </div>
+
+        <div class="form-group">
             <label for="driveUrl">Google Drive Linki</label>
             <input type="url" id="driveUrl" placeholder="https://drive.google.com/..." required>
         </div>
@@ -121,6 +126,7 @@
         
         const submitBtn = document.getElementById('submitBtn');
         const title = document.getElementById('title').value;
+        const type = document.getElementById('documentType').value;
         const driveUrl = document.getElementById('driveUrl').value;
 
         // Butonu geçici olarak devre dışı bırak
@@ -133,7 +139,7 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ title, driveUrl })
+                body: JSON.stringify({ title, type, driveUrl })
             });
 
             const data = await response.json();

@@ -59,6 +59,11 @@
       <label>Ad Soyad</label>
       <input type="text" name="name" placeholder="Adın ve soyadın" required />
     </div>
+      
+        <label>Okul Numarası</label>
+      <input type="text" name="number" placeholder="okul numaran" required />
+    </div>
+
 
     <div class="field">
       <label>Sınıf</label>
@@ -66,18 +71,32 @@
         <option value="">Sınıfını seç…</option>
         <option>9-A</option>
         <option>9-B</option>
+        <option>9-C</option>
+        <option>9-D</option>
         <option>10-A</option>
         <option>10-B</option>
+        <option>10-C</option>
+        <option>10-D</option>
+        <option>10-E</option>
+        <option>10-F</option>
         <option>11-A</option>
         <option>11-B</option>
+        <option>11-C</option>
+        <option>11-D</option>
+        <option>11-E</option>
+        <option>11-F</option>
         <option>12-A</option>
         <option>12-B</option>
+        <option>12-C</option>
+        <option>12-D</option>
+        <option>12-E</option>
+        <option>12-F</option>
       </select>
     </div>
 
     <div class="motivation-box">
       <label for="motivation" style="display:block; font-weight:600; margin-bottom:10px;">
-        Motivasyon Mektubu
+        Bu etkinliğe katılım motivasyonunuz nedir? Lütfen kısaca açıklayınız.
       </label>
 
       <p>
@@ -96,13 +115,6 @@
       <small>En fazla 1000 karakter.</small>
     </div>
 
-    <div class="motivation-box">
-      <p><strong>Neden katılmalısın?</strong><br>
-      Bu etkinlikte farklı alanlarda uzman isimlerle bir araya gelecek, yeni beceriler kazanacak ve ilham verici deneyimler yaşayacaksın.</p>
-    </div>
-
-    <p class="section-label">Atölye tercihleri</p>
-
     <!-- HIDDEN WORKSHOP INPUT -->
     <input type="hidden" name="workshops" id="workshopsInput">
 
@@ -111,8 +123,8 @@
       <div class="workshop-item" onclick="selectWorkshop(0)">
         <span class="badge">1</span>
         <div>
-          <div class="name">1. Atölye</div>
-          <div class="desc">Açıklama buraya gelebilir</div>
+          <div class="name">Doç. Dr. Yusuf Akyıl / Yaratıcı Drama ile Stres Azaltma.</div>
+          <div class="desc">r</div>
         </div>
         <span class="workshop-rank" id="r0"></span>
       </div>
@@ -120,7 +132,7 @@
       <div class="workshop-item" onclick="selectWorkshop(1)">
         <span class="badge">2</span>
         <div>
-          <div class="name">2. Atölye</div>
+          <div class="name">Uzm. Psk.Dan. Ozan Çetiner/Terapötik Kartlarla Sosyal Atom Çalışması</div>
           <div class="desc">Açıklama buraya gelebilir</div>
         </div>
         <span class="workshop-rank" id="r1"></span>
@@ -129,20 +141,12 @@
       <div class="workshop-item" onclick="selectWorkshop(2)">
         <span class="badge">3</span>
         <div>
-          <div class="name">3. Atölye</div>
+          <div class="name">Uzm.Psk.Dan Efendi Yavaşoğlu/ Duygu odaklı Psikoterapi ile Duyguların Keşfi</div>
           <div class="desc">Açıklama buraya gelebilir</div>
         </div>
         <span class="workshop-rank" id="r2"></span>
       </div>
 
-      <div class="workshop-item" onclick="selectWorkshop(3)">
-        <span class="badge">4</span>
-        <div>
-          <div class="name">4. Atölye</div>
-          <div class="desc">Açıklama buraya gelebilir</div>
-        </div>
-        <span class="workshop-rank" id="r3"></span>
-      </div>
 
     </div>
 

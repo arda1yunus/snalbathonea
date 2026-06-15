@@ -61,6 +61,10 @@ function authControl(req, res, next) {
     else res.redirect("/login.html");
 }
 
+app.get('/etkinlikler', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'etkinlikler.html'));
+});
+
 // API ROTALARI
 const articleRoutes = require("./routes/articleRoutes");
 app.use("/api/articles", articleRoutes);

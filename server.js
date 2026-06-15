@@ -83,11 +83,6 @@ app.post("/api/login", (req, res) => {
     }
 });
 
-const registerRoute = require('./routes/register');
-app.use(express.json());
-app.use('/api/register', registerRoute);
-
-
 // SAYFA YÖNLENDİRMELERİ
 app.get("/admin.html", authControl, (req, res) => {
     res.sendFile(path.join(__dirname, "private", "admin.html"));

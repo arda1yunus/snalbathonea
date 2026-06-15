@@ -140,7 +140,31 @@ body{
     cursor:pointer;
     transition:.25s;
 }
+.motivation-box{
+    background:#fafafa;
+    border:1px solid #e5e7eb;
+    border-radius:20px;
+    padding:24px;
+    margin:30px 0;
+}
 
+.motivation-box textarea{
+    width:100%;
+    resize:vertical;
+    min-height:150px;
+    padding:15px;
+    border:1px solid #d1d5db;
+    border-radius:14px;
+    font-family:inherit;
+    font-size:14px;
+    box-sizing:border-box;
+}
+
+.motivation-box textarea:focus{
+    outline:none;
+    border-color:#4f46e5;
+    box-shadow:0 0 0 4px rgba(79,70,229,.1);
+}
 .submit-area button:hover{
     transform:translateY(-2px);
     box-shadow:0 12px 25px rgba(79,70,229,.3);

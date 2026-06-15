@@ -1,30 +1,43 @@
 /* =========================
-   FORM BASE
+   GLOBAL FIX
 ========================= */
-body {
-  margin: 0;
-  padding: 40px 16px;
-  background: #f6f7fb;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+
+* {
   box-sizing: border-box;
 }
+
+html, body {
+  height: 100%;
+}
+
+/* =========================
+   BODY
+========================= */
+
 body {
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   background: #f6f7fb;
   margin: 0;
-  padding: 0;
+  padding: 40px 16px;
   color: #1f2937;
+  min-height: 100vh;
 }
+
+/* =========================
+   FORM CONTAINER
+========================= */
 
 .form-wrap {
   max-width: 600px;
-  margin: 40px auto;
+  width: 100%;
+  margin: 0 auto;
   background: #ffffff;
   padding: 28px;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+
+  display: block;
+  overflow: visible;
 }
 
 /* =========================
@@ -111,7 +124,7 @@ textarea:focus {
 }
 
 /* =========================
-   WORKSHOP CARD
+   WORKSHOP GRID
 ========================= */
 
 .workshop-grid {
@@ -119,6 +132,10 @@ textarea:focus {
   gap: 12px;
   margin-top: 10px;
 }
+
+/* =========================
+   WORKSHOP ITEM
+========================= */
 
 .workshop-item {
   display: flex;
@@ -143,6 +160,10 @@ textarea:focus {
   background: #eef2ff;
 }
 
+/* =========================
+   BADGE
+========================= */
+
 .badge {
   width: 28px;
   height: 28px;
@@ -161,6 +182,10 @@ textarea:focus {
   color: white;
 }
 
+/* =========================
+   TEXT INSIDE CARD
+========================= */
+
 .name {
   font-size: 14px;
   font-weight: 600;
@@ -172,6 +197,10 @@ textarea:focus {
   color: #6b7280;
   margin-top: 2px;
 }
+
+/* =========================
+   RANK
+========================= */
 
 .workshop-rank {
   margin-left: auto;
@@ -233,9 +262,13 @@ button:hover {
 ========================= */
 
 @media (max-width: 640px) {
+  body {
+    padding: 0;
+  }
+
   .form-wrap {
     margin: 0;
     border-radius: 0;
-    box-shadow: none;
+    min-height: 100vh;
   }
 }

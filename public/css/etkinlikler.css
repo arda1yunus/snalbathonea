@@ -1,43 +1,36 @@
 /* =========================
-   GLOBAL FIX
+   RESET
 ========================= */
-
 * {
   box-sizing: border-box;
 }
 
-html, body {
-  height: 100%;
-}
-
-/* =========================
-   BODY
-========================= */
-
 body {
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background: #f6f7fb;
   margin: 0;
   padding: 40px 16px;
-  color: #1f2937;
-  min-height: 100vh;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: #f6f7fb;
+  color: #111827;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 /* =========================
-   FORM CONTAINER
+   FORM CONTAINER (ASIL FIX BURASI)
 ========================= */
 
 .form-wrap {
-  max-width: 600px;
   width: 100%;
-  margin: 0 auto;
+  max-width: 620px;
   background: #ffffff;
-  padding: 28px;
   border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  padding: 28px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 
-  display: block;
-  overflow: visible;
+  /* ❗ BU KISIM YARIM KESİLMEYİ FIXLER */
+  margin: 0;
 }
 
 /* =========================
@@ -48,7 +41,6 @@ body {
   font-size: 22px;
   margin: 0;
   font-weight: 600;
-  color: #111827;
 }
 
 .form-header p {
@@ -58,20 +50,20 @@ body {
 }
 
 /* =========================
-   LABELS
+   SECTION TITLE
 ========================= */
 
 .section-label {
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.08em;
   text-transform: uppercase;
+  letter-spacing: 0.08em;
   color: #6b7280;
   margin: 24px 0 10px;
 }
 
 /* =========================
-   INPUTS
+   FIELDS
 ========================= */
 
 .field {
@@ -94,7 +86,6 @@ textarea {
   border-radius: 10px;
   font-size: 14px;
   outline: none;
-  transition: all 0.2s ease;
   background: #fff;
 }
 
@@ -120,11 +111,10 @@ textarea:focus {
 .motivation-box p {
   font-size: 13px;
   color: #6b7280;
-  margin: 8px 0 0;
 }
 
 /* =========================
-   WORKSHOP GRID
+   WORKSHOP CARDS
 ========================= */
 
 .workshop-grid {
@@ -132,10 +122,6 @@ textarea:focus {
   gap: 12px;
   margin-top: 10px;
 }
-
-/* =========================
-   WORKSHOP ITEM
-========================= */
 
 .workshop-item {
   display: flex;
@@ -145,24 +131,12 @@ textarea:focus {
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   background: #fff;
-  cursor: pointer;
-  transition: all 0.2s ease;
 }
 
 .workshop-item:hover {
-  transform: translateY(-2px);
   border-color: #c7d2fe;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.05);
 }
-
-.workshop-item.selected {
-  border-color: #6366f1;
-  background: #eef2ff;
-}
-
-/* =========================
-   BADGE
-========================= */
 
 .badge {
   width: 28px;
@@ -174,50 +148,20 @@ textarea:focus {
   background: #e5e7eb;
   font-size: 12px;
   font-weight: 600;
-  color: #374151;
-}
-
-.workshop-item.selected .badge {
-  background: #6366f1;
-  color: white;
 }
 
 /* =========================
-   TEXT INSIDE CARD
+   TEXT
 ========================= */
 
 .name {
   font-size: 14px;
   font-weight: 600;
-  color: #111827;
 }
 
 .desc {
   font-size: 12px;
   color: #6b7280;
-  margin-top: 2px;
-}
-
-/* =========================
-   RANK
-========================= */
-
-.workshop-rank {
-  margin-left: auto;
-  font-size: 12px;
-  color: #6b7280;
-}
-
-.rank-badge {
-  width: 22px;
-  height: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: #6366f1;
-  color: white;
-  font-size: 11px;
 }
 
 /* =========================
@@ -238,27 +182,14 @@ button {
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: 0.2s ease;
 }
 
 button:hover {
   background: #4f46e5;
-  transform: translateY(-1px);
 }
 
 /* =========================
-   HINT
-========================= */
-
-.hint {
-  font-size: 12px;
-  color: #9ca3af;
-  text-align: center;
-  margin-top: 10px;
-}
-
-/* =========================
-   MOBILE
+   MOBILE FIX
 ========================= */
 
 @media (max-width: 640px) {
@@ -267,8 +198,6 @@ button:hover {
   }
 
   .form-wrap {
-    margin: 0;
     border-radius: 0;
-    min-height: 100vh;
   }
 }

@@ -37,6 +37,26 @@ router.post('/', async (req, res) => {
   }
 });
 
+const registrationSchema = new mongoose.Schema({
+  adSoyad: { type: String, required: true, trim: true },
+  sinif: { type: String, required: true },
+
+  motivasyon: {
+    type: String,
+    required: true
+  },
+
+  atolyeTercihleri: {
+    type: [String],
+    validate: {
+      validator: (arr) => arr.length === 4,
+      message: '4 atölye tercihi zorunludur.',
+    },
+  },
+
+  tarih: { type: Date, default: Date.now },
+});
+
 // --- GET /api/register (opsiyonel: tüm kayıtları listele) ---
 router.get('/', async (req, res) => {
   try {

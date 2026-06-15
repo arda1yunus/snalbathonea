@@ -79,6 +79,9 @@ app.post("/api/login", (req, res) => {
     }
 });
 
+const registerRoute = require('./routes/register');
+app.use(express.json());
+app.use('/api/register', registerRoute);
 
 
 // SAYFA YÖNLENDİRMELERİ

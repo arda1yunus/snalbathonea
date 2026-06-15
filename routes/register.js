@@ -1,70 +1,141 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const nodemailer = require('nodemailer');
 
-// --- Model ---
-const registrationSchema = new mongoose.Schema({
-  adSoyad: { type: String, required: true, trim: true },
-  sinif: { type: String, required: true },
-  atolyeTercihleri: {
-    type: [String],
-    validate: {
-      validator: (arr) => arr.length === 4,
-      message: '4 atölye tercihi zorunludur.',
-    },
-  },
-  tarih: { type: Date, default: Date.now },
+// Mail ayarı
+const transporter = nodemailer.createTransport({
+service: 'gmail',
+auth: {
+user: process.env.EMAIL_USER,
+pass: process.env.EMAIL_PASS
+}
 });
 
-const Registration = mongoose.model('Registration', registrationSchema);
+// Model
+const registrationSchema = new mongoose.Schema({
+adSoyad: {
+type: String,
+required: true,
+trim: true
+},
 
-// --- POST /api/register ---
+sinif: {
+type: String,
+required: true
+},
+
+motivasyon: {
+type: String,
+required: true
+},
+
+atolyeTercihleri: {
+type: [String],
+validate: {
+validator: (arr) => arr.length === 4,
+message: '4 atölye tercihi zorunludur.'
+}
+},
+
+tarih: {
+type: Date,
+default: Date.now
+}
+});
+
+const Registration = mongoose.model(
+'Registration',
+registrationSchema
+);
+
+// POST /api/register
 router.post('/', async (req, res) => {
-  try {
-    const { adSoyad, sinif, atolyeTercihleri } = req.body;
+try {
 
-    if (!adSoyad || !sinif || !atolyeTercihleri || atolyeTercihleri.length !== 4) {
-      return res.status(400).json({ hata: 'Tüm alanlar zorunludur ve 4 atölye tercihi gereklidir.' });
-    }
+```
+const {
+  adSoyad,
+  sinif,
+  motivasyon,
+  atolyeTercihleri
+} = req.body;
 
-    const kayit = new Registration({ adSoyad, sinif, atolyeTercihleri });
-    await kayit.save();
+if (
+  !adSoyad ||
+  !sinif ||
+  !motivasyon ||
+  !atolyeTercihleri ||
+  atolyeTercihleri.length !== 4
+) {
+  return res.status(400).json({
+    hata: 'Tüm alanlar zorunludur.'
+  });
+}
 
-    res.status(201).json({ mesaj: 'Kayıt başarıyla tamamlandı!', id: kayit._id });
-  } catch (err) {
-    console.error('Kayıt hatası:', err);
-    res.status(500).json({ hata: 'Sunucu hatası, lütfen tekrar deneyin.' });
-  }
+const kayit = new Registration({
+  adSoyad,
+  sinif,
+  motivasyon,
+  atolyeTercihleri
 });
 
-const registrationSchema = new mongoose.Schema({
-  adSoyad: { type: String, required: true, trim: true },
-  sinif: { type: String, required: true },
+await kayit.save();
 
-  motivasyon: {
-    type: String,
-    required: true
-  },
+await transporter.sendMail({
+  from: process.env.EMAIL_USER,
+  to: process.env.RECEIVER_EMAIL,
+  subject: 'Yeni Etkinlik Başvurusu',
+  html: `
+    <h2>Yeni Başvuru</h2>
 
-  atolyeTercihleri: {
-    type: [String],
-    validate: {
-      validator: (arr) => arr.length === 4,
-      message: '4 atölye tercihi zorunludur.',
-    },
-  },
+    <p><strong>Ad Soyad:</strong> ${adSoyad}</p>
+    <p><strong>Sınıf:</strong> ${sinif}</p>
 
-  tarih: { type: Date, default: Date.now },
+    <h3>Motivasyon</h3>
+    <p>${motivasyon}</p>
+
+    <h3>Atölye Tercihleri</h3>
+    <ol>
+      ${atolyeTercihleri.map(t => `<li>${t}</li>`).join('')}
+    </ol>
+  `
 });
 
-// --- GET /api/register (opsiyonel: tüm kayıtları listele) ---
+res.status(201).json({
+  mesaj: 'Kayıt başarıyla tamamlandı!',
+  id: kayit._id
+});
+```
+
+} catch (err) {
+console.error(err);
+
+```
+res.status(500).json({
+  hata: 'Sunucu hatası.'
+});
+```
+
+}
+});
+
+// GET kayıtlar
 router.get('/', async (req, res) => {
-  try {
-    const kayitlar = await Registration.find().sort({ tarih: -1 });
-    res.json(kayitlar);
-  } catch (err) {
-    res.status(500).json({ hata: 'Veriler alınamadı.' });
-  }
+try {
+const kayitlar =
+await Registration.find()
+.sort({ tarih: -1 });
+
+```
+res.json(kayitlar);
+```
+
+} catch (err) {
+res.status(500).json({
+hata: 'Veriler alınamadı.'
+});
+}
 });
 
 module.exports = router;

@@ -1,68 +1,168 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Etkinlik Kayıt Formu</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, sans-serif;
+      background: #f5f5f5;
+      color: #1a1a1a;
+      padding: 2rem 1rem;
+    }
+
+    form {
+      max-width: 560px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 2rem;
+    }
+
+    .section-label {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 1.25rem;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .section-label:not(:first-child) {
+      margin-top: 2rem;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 1rem;
+    }
+
+    .field label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #555;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      background: #fafafa;
+      color: #1a1a1a;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: #4a7fc1;
+      box-shadow: 0 0 0 3px rgba(74, 127, 193, 0.15);
+    }
+
+    .motivation-box {
+      margin-bottom: 1rem;
+    }
+
+    .motivation-box label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+    }
+
+    .motivation-box p {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    .motivation-box textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      background: #fafafa;
+      color: #1a1a1a;
+      resize: vertical;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .motivation-box textarea:focus {
+      border-color: #4a7fc1;
+      box-shadow: 0 0 0 3px rgba(74, 127, 193, 0.15);
+    }
+
+    .motivation-box small {
+      font-size: 12px;
+      color: #999;
+      display: block;
+      margin-top: 4px;
+    }
+
+    .submit-area {
+      margin-top: 1.5rem;
+    }
+
+    .submit-area button {
+      padding: 10px 28px;
+      background: #4a7fc1;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .submit-area button:hover {
+      background: #3a6aaa;
+    }
+  </style>
+</head>
+<body>
+
 <form action="https://formspree.io/f/xdavbdzy" method="POST">
-
   <p class="section-label">Kişisel bilgiler</p>
-
   <div class="field">
     <label>Ad Soyad</label>
     <input type="text" name="name" placeholder="Adın ve soyadın" required />
   </div>
-
   <div class="field">
     <label>Okul Numarası</label>
     <input type="text" name="number" placeholder="okul numaran" required />
   </div>
-
   <div class="field">
     <label>Sınıf</label>
     <select name="class" required>
       <option value="">Sınıfını seç…</option>
-      <option>9-A</option>
-      <option>9-B</option>
-      <option>9-C</option>
-      <option>9-D</option>
-      <option>10-A</option>
-      <option>10-B</option>
-      <option>10-C</option>
-      <option>10-D</option>
-      <option>10-E</option>
-      <option>10-F</option>
-      <option>11-A</option>
-      <option>11-B</option>
-      <option>11-C</option>
-      <option>11-D</option>
-      <option>11-E</option>
-      <option>11-F</option>
-      <option>12-A</option>
-      <option>12-B</option>
-      <option>12-C</option>
-      <option>12-D</option>
-      <option>12-E</option>
-      <option>12-F</option>
+      <option>9-A</option><option>9-B</option><option>9-C</option><option>9-D</option>
+      <option>10-A</option><option>10-B</option><option>10-C</option><option>10-D</option><option>10-E</option><option>10-F</option>
+      <option>11-A</option><option>11-B</option><option>11-C</option><option>11-D</option><option>11-E</option><option>11-F</option>
+      <option>12-A</option><option>12-B</option><option>12-C</option><option>12-D</option><option>12-E</option><option>12-F</option>
     </select>
   </div>
-
   <div class="motivation-box">
-    <label style="display:block; font-weight:600; margin-bottom:10px;">
-      Bu etkinliğe katılım motivasyonunuz nedir? Lütfen kısaca açıklayınız.
-    </label>
-
-    <p>
-      Bu etkinliğe neden katılmak istediğini, ilgi alanlarını ve etkinlikten beklentilerini kısaca anlat.
-    </p>
-
-    <textarea
-      name="motivation"
-      rows="6"
-      maxlength="1000"
-      placeholder="Örneğin: Yapay zekâ ve yazılım alanında kendimi geliştirmek istiyorum..."
-      required
-    ></textarea>
-
+    <label>Bu etkinliğe katılım motivasyonunuz nedir? Lütfen kısaca açıklayınız.</label>
+    <p>Bu etkinliğe neden katılmak istediğini, ilgi alanlarını ve etkinlikten beklentilerini kısaca anlat.</p>
+    <textarea name="motivation" rows="6" maxlength="1000" placeholder="Örneğin: Yapay zekâ ve yazılım alanında kendimi geliştirmek istiyorum..." required></textarea>
     <small>En fazla 1000 karakter.</small>
   </div>
-
   <p class="section-label">Atölye tercihleri</p>
-
   <div class="field">
     <label>1. Tercih</label>
     <select name="workshop_1" required>
@@ -72,7 +172,6 @@
       <option>Efendi Yavaşoğlu / Duygu Terapisi</option>
     </select>
   </div>
-
   <div class="field">
     <label>2. Tercih</label>
     <select name="workshop_2" required>
@@ -82,7 +181,6 @@
       <option>Efendi Yavaşoğlu / Duygu Terapisi</option>
     </select>
   </div>
-
   <div class="field">
     <label>3. Tercih</label>
     <select name="workshop_3" required>
@@ -92,9 +190,11 @@
       <option>Efendi Yavaşoğlu / Duygu Terapisi</option>
     </select>
   </div>
-
   <div class="submit-area">
     <button type="submit">Kayıt Ol</button>
   </div>
-
 </form>
+
+</body>
+</html>
+
